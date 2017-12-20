@@ -14,9 +14,7 @@ The Moving Average Convergence/Divergence oscillator (MACD) is one of the simple
 ### Momentum indicator
 <a href="http://http://www.investopedia.com/terms/m/marketmomentum.asp">What is Momentum?</a>
 #### Stochastics Oscillator
-The Stochastic Oscillator is a momentum indicator that shows the location of the close relative to the high-low range over a set number of periods.
-<img src="http://i66.tinypic.com/2vam3uo.png">
-
+The Stochastic Oscillator is a momentum indicator that shows the location of the close relative to the high-low range over a set number of periods. 
 
 ### Volume indicator
 <a href="http://www.investopedia.com/terms/v/volume.asp">What is Volume?</a>
@@ -36,20 +34,7 @@ Calculation:<br>
 ## Recurrent Neural Network
 
 A (more appropiate) recurrent neural network model. Details in the corresponding Notebook "Currency_Market_Predictor_RNN.ipynb"
-
-
-
-## Dependencies for challenge
-
-
-* numpy
-* tensorflow
-
-## Dependencies for Full Notebook
-
-* matplotlib (for plotting)
-* pandas (for dataset manipulation)
-
+ 
 ### References
 
 
