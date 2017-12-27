@@ -1,4 +1,4 @@
-3 features are used to determine the price. It uses some textual feature: **three popular technical indicators** that can help the model predict the price as they help human traders to do the same task.
+There are 3 features that are used to determine the price. It uses some textual feature: **three popular technical indicators** that can help the model predict the price as they help human traders to do the same task.
 
 
 ## Technical Indicators
