@@ -15,17 +15,17 @@ import matplotlib.pyplot as plt
 
 # ## Read data
 
-
 dataset = pd.read_csv('EURUSD_TechnicalIndicators.csv')
 
 # #### Normalize
-
-datasetNorm = (dataset - dataset.mean()) / (dataset.max() - dataset.min())
+minimum = dataset.min()
+maximum = dataset.max()
+average = dataset.mean()
+datasetNorm = (dataset - average) / (maximum - minimum)
 
 # ## Hyperparams
 
-
-num_epochs = 10000
+num_epochs = 25000
 
 batch_size = 1
 
@@ -45,7 +45,6 @@ min_test_size = 100
 # ## Train-Test split
 datasetTrain = datasetNorm[dataset.index < num_batches*batch_size*truncated_backprop_length]
 
-
 for i in range(min_test_size,len(datasetNorm.index)):
     
     if(i % truncated_backprop_length*batch_size == 0):
@@ -57,10 +56,6 @@ datasetTest =  datasetNorm[dataset.index >= test_first_idx]
 xTrain = datasetTrain[['Close','MACD','Stochastics','ATR']].as_matrix()
 yTrain = datasetTrain['CloseTarget'].as_matrix()
 
-
-#print(xTrain[0:3],'\n',yTrain[0:3])
-
-
 # ## Visualize starting price data
 
 ##plt.figure(figsize=(25,5))
@@ -71,6 +66,7 @@ yTrain = datasetTrain['CloseTarget'].as_matrix()
 #plt.plot(xTest[:,0])
 #plt.title('Test (' +str(len(xTest))+' data points)')
 #plt.show()
+
 # ## Placeholders
 
 
@@ -121,8 +117,7 @@ bias = tf.Variable(tf.constant(0.1,shape=[num_classes]))
 # ## Prediction, Loss & Optimizer
 
 prediction = tf.matmul(last_state,weight) + bias
-prediction
-loss = tf.reduce_mean(tf.squared_difference(last_label,prediction))
+predictionloss = tf.reduce_mean(tf.squared_difference(last_label,prediction))
 
 train_step = tf.train.AdamOptimizer(learning_rate=0.001).minimize(loss)
 
@@ -172,16 +167,17 @@ with tf.Session() as sess:
         _last_state,_last_label,test_pred = sess.run([last_state,last_label,prediction],feed_dict=feed)
         test_pred_list.append(test_pred[-1][-1]) #The last one
 
-import matplotlib.pyplot as plt
-plt.title('Loss')
-plt.scatter(x=np.arange(0,len(loss_list)),y=loss_list)
-plt.xlabel('epochs')
-plt.ylabel('loss')
-plt.show();
-plt.figure(figsize=(21,7))
-plt.plot(yTest,label='Price',color='blue')
-plt.plot(test_pred_list,label='Predicted',color='red')
-plt.title('Price vs Predicted')
-plt.legend(loc='upper left')
-plt.show()
+# ##Visualization 
+#import matplotlib.pyplot as plt
+#plt.title('Loss')
+#plt.scatter(x=np.arange(0,len(loss_list)),y=loss_list)
+#plt.xlabel('epochs')
+#plt.ylabel('loss')
+#plt.show();
+#plt.figure(figsize=(21,7))
+#plt.plot(yTest,label='Price',color='blue')
+#plt.plot(test_pred_list,label='Predicted',color='red')
+#plt.title('Price vs Predicted')
+#plt.legend(loc='upper left')
+#plt.show()
 
